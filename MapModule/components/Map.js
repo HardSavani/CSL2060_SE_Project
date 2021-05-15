@@ -12,14 +12,14 @@ import MapView, { Marker, Circle, Callout } from "react-native-maps";
 import { Icon } from "react-native-elements";
 
 import MapViewDirections from "react-native-maps-directions";
-import { getDistance, getBoundsOfDistance } from "geolib";
+import { getDistance } from "geolib";
 import getDirections from "react-native-google-maps-directions";
 import * as Location from "expo-location";
 
 import MarkerModal from "./MarkerModal";
 import { vendingMachineCoordinates } from "../VendingMachineCoordinates";
 
-const GOOGLEMAP_API_KEY = "AIzaSyBUYPp3NwoR6q5rd5kdZLCz6EPkpnsOMyM";
+// const GOOGLEMAP_API_KEY = "AIzaSyBUYPp3NwoR6q5rd5kdZLCz6EPkpnsOMyM";
 const origin = { latitude: 26.47310246425863, longitude: 73.11491079431302 };
 const destinationMPD = {
   latitude: 26.471453412396343,
@@ -58,7 +58,6 @@ const Map = props => {
   async function _getLocation() {
     // let { status } = Permissions.askAsync(Permissions.LOCATION);
     // let { status } = await Location.requestForegroundPermissionsAsync();
-    // console.log("Doing..");
     let { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== "granted") {
@@ -110,14 +109,11 @@ const Map = props => {
   }
 
   function hideModal() {
-    // this.setState({ modal: false });
     setModal(false);
     setSelectedVendingMachineObject();
-    // this.setState({ screenOpacity: 1 });
   }
 
   async function getNearest() {
-    // console.log("getnearest source", source);
     await vendingMachineCoordinates.map((vendingPlace, index) => {
       if (
         getDistance(source, {
@@ -135,7 +131,7 @@ const Map = props => {
           longitude: vendingPlace.longitude
         };
       }
-      console.log("getnearest nearest", nearest);
+      // console.log("getnearest nearest", nearest);
     });
 
     return await { source: nearest, destination: source };
@@ -146,47 +142,82 @@ const Map = props => {
     getNearest();
   }, []);
 
-  // console.log("current location", locationResult);
+  // _getLocation();
+  // getNearest();
 
   return (
     <>
-      <TouchableOpacity
-        style={{
-          borderWidth: 1,
-          borderColor: "rgba(0,0,0,0.2)",
-          borderRadius: 50,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#25b0fa",
-          position: "absolute",
-          padding: 12,
-          top: 550,
-          right: 10,
-          zIndex: 1
-        }}
-        underlayColor="#DDDDDD"
-        onPress={() => console.log("Directions")}
-      >
-        <Icon name="directions" size={25} />
-      </TouchableOpacity>
       {locationResult == null ? (
-        <Text>Finding your current location</Text>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            width: "100%"
+          }}
+        >
+          <Text style={{ fontSize: 25 }}>Finding your current location</Text>
+        </View>
       ) : hasLocationPermissions == false ? (
-        <Text>You haven't given us location permission</Text>
+        <Text
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 25
+          }}
+        >
+          You haven't given us location permission
+        </Text>
       ) : mapRegion === null ? (
-        <Text>This map region doesn't exist</Text>
+        <Text
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 25
+          }}
+        >
+          This map region doesn't exist
+        </Text>
       ) : (
         <>
+          {/* <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: "rgba(0,0,0,0.2)",
+              borderRadius: 50,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#25b0fa",
+              position: "absolute",
+              padding: 12,
+              top: 550,
+              right: 10,
+              zIndex: 1,
+            }}
+            underlayColor="#DDDDDD"
+            onPress={() => console.log("Directions")}
+          >
+            <Icon name="directions" size={25} />
+          </TouchableOpacity> */}
           <MapView
             style={{ ...StyleSheet.absoluteFillObject, flex: 1 }}
             provider={MapView.PROVIDER_GOOGLE}
             initialRegion={mapRegion}
             // onRegionChange={_handleMapRegion}
             showsMyLocationButton={true}
-            showsUserLocation
+            showsUserLocation={true}
             onUserLocationChange={region => {
-              console.log("changed location", region.latitude);
-              // setLocationResult(region);
+              setLocationResult({
+                coords: {
+                  latitude: region.nativeEvent.coordinate.latitude,
+                  longitude: region.nativeEvent.coordinate.longitude
+                }
+              });
+
+              // console.log("userlocation change", region.nativeEvent);
             }}
           >
             {mapRegion == null ? (
@@ -198,7 +229,7 @@ const Map = props => {
               ></Marker>
             ) : (
               <>
-                {console.log("marker", locationResult, locationResult)}
+                {/* {console.log("marker", locationResult)} */}
                 <Marker
                   coordinate={{
                     latitude: locationResult.coords.latitude,
@@ -211,6 +242,7 @@ const Map = props => {
                     <Text>"Current Location"</Text>
                   </Callout>
                 </Marker>
+                {/* {console.log("marker region", locationResult)} */}
                 <Circle
                   center={{
                     latitude: locationResult.coords.latitude,
@@ -255,10 +287,10 @@ const Map = props => {
             destination={destination}
           />
           <Button
-            title="Directions"
+            title="Nearest Vending Machine"
             onPress={async () => {
               const data = await getNearest();
-              console.log("nearest", nearest);
+              // console.log("nearest", nearest);
               getDirections(data);
             }}
           />

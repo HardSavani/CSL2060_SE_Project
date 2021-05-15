@@ -8,10 +8,6 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 
-// import * as firebase from "firebase";
-// import "firebase/firestore";
-// import { firebaseConfig } from "../../config";
-
 import { getDistance, getBoundsOfDistance } from "geolib";
 import getDirections from "react-native-google-maps-directions";
 
@@ -22,8 +18,6 @@ import getDirections from "react-native-google-maps-directions";
 // }
 
 import firebase from "../../firebase";
-
-// import Map from
 
 var userDatabase = firebase.firestore().collection("Users");
 var vendingMachineDatabase = firebase.firestore().collection("Vending-Machine");

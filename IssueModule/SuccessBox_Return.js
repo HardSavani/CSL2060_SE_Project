@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { Icon } from "react-native-elements";
 
 // import * as firebase from "firebase";
 // import "firebase/firestore";
@@ -33,6 +34,8 @@ const SuccessBox_Return = props => {
     .split("@")[0];
 
   var current = new Date();
+  var dues = 0;
+  var time = -1;
 
   async function update() {
     await vendingMachineDatabase
@@ -49,7 +52,6 @@ const SuccessBox_Return = props => {
             setPowerId("Return-PowerBank-ID");
             setSlotKey(key);
             Count += 1;
-            // console.log(Slot); // This is working but down there, not printing
           }
         });
       });
@@ -57,14 +59,12 @@ const SuccessBox_Return = props => {
     async function x() {
       console.log("Slotkey coming in x", SlotKey);
       if (SlotKey != "") {
-        // const borrowedPowerBank_UID = PowerId;
-
-        // console.log(current.toLocaleTimeString());
-
         var transactionID;
         var transactions;
         var currentIssue;
         var borrowedPowerBank_UID;
+        var borrowDate;
+        var borrowTime;
 
         // await user;
 
@@ -73,10 +73,10 @@ const SuccessBox_Return = props => {
         returnTime += current.getMinutes().toString();
 
         var returnDate = current.getDate().toString();
-        returnDate += ":";
+        returnDate += "/";
         returnDate +=
           (current.getMonth() + 1).toString() +
-          ":" +
+          "/" +
           current.getFullYear().toString();
 
         await userDatabase
@@ -85,16 +85,44 @@ const SuccessBox_Return = props => {
           .then(doc => {
             transactions = doc.data().Transactions;
             currentIssue = doc.data().CurrentIssue;
+            borrowDate = doc.data().CurrentIssue.borrow_date;
+            borrowTime = doc.data().CurrentIssue.borrow_time;
           });
 
-        console.log("transaction", transactions);
-        // console.log("transaction ID", transactionID);
-        console.log("Current Issue", currentIssue);
-        console.log("transaction id", currentIssue.transaction_id);
-        console.log(
-          "That particular object",
-          transactions[currentIssue.transaction_id].Status
-        );
+        var borrowD = parseInt(borrowDate.split("/")[0]);
+        var returnD = parseInt(returnDate.split("/")[0]);
+        var borrowM = parseInt(borrowTime.split(":")[0]);
+        var borrowS = parseInt(borrowTime.split(":")[1]);
+        var returnM = parseInt(returnTime.split(":")[0]);
+        var returnS = parseInt(returnTime.split(":")[1]);
+
+        if (returnM > borrowM) {
+          time = (returnD - borrowD) * 24 * 60 + (returnM - borrowM) * 60;
+          if (returnS > borrowS) {
+            time += returnS - borrowS;
+          } else {
+            time -= returnS - borrowS;
+          }
+        } else if (borrowM > returnM) {
+          time = (returnD - borrowD) * 24 * 60 - (returnM - borrowM) * 60;
+          if (returnS > borrowS) {
+            time += returnS - borrowS;
+          } else {
+            time -= returnS - borrowS;
+          }
+        } else {
+          if (returnS > borrowS) {
+            time = (returnD - borrowD) * 24 * 60 - (returnM - borrowM) * 60;
+            time += returnS - borrowS;
+          } else if (borrowS > returnS) {
+            time = (returnD - borrowD) * 24 * 60 - (returnM - borrowM) * 60;
+            time -= returnS - borrowS;
+          } else {
+            time = (returnD - borrowD) * 24 * 60;
+          }
+        }
+
+        dues = time;
 
         transactionID = currentIssue.transaction_id;
         borrowedPowerBank_UID = currentIssue.PowerBank_UID;
@@ -109,21 +137,9 @@ const SuccessBox_Return = props => {
             borrow_date: ""
           }
         });
-
-        // transactions[transactionID] = {
-        //   Status: "On-going",
-        //   PowerBank_UID: borrowedPowerBank_UID,
-        //   borrow_time: borrowTime,
-        //   borrow_date: borrowDate
-        // console.log("transaction id", transactions.transactionID);
-        // };
-        // transactions[transactionID][Status] = "Completed";
         transactions[transactionID].Status = "Completed";
-        // transactions[transactionID][dues] = 0;
-        transactions[transactionID].dues = 0;
-        // transactions[transactionID][return_time] = returnTime;
+        transactions[transactionID].due = dues;
         transactions[transactionID].return_time = returnTime;
-        // transactions[transactionID][return_date] = returnDate;
         transactions[transactionID].return_date = returnDate;
         userDatabase.doc(ldapCurrentUser).update({
           Transactions: transactions
@@ -182,30 +198,32 @@ const SuccessBox_Return = props => {
   }
 
   return (
-    <View style={styles.mask}>
-      <View style={styles.box}>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}> Machine: {props.sdata} </Text>
-        </View>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}> PowerBank Id: {PowerId}</Text>
-        </View>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}> Return to : {SlotKey} </Text>
-        </View>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}>
-            {" "}
-            Returned at:{" "}
-            {current.getDate().toString() +
-              ":" +
-              (current.getMonth() + 1).toString() +
-              ":" +
-              current.getFullYear().toString()}
-          </Text>
+    <>
+      <View style={styles.mask}>
+        <View style={styles.box}>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}> Machine: {props.sdata} </Text>
+          </View>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}> PowerBank Id: {PowerId}</Text>
+          </View>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}> Return to : {SlotKey} </Text>
+          </View>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}>
+              {" "}
+              Returned at:{" "}
+              {current.getDate().toString() +
+                ":" +
+                (current.getMonth() + 1).toString() +
+                ":" +
+                current.getFullYear().toString()}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -244,6 +262,26 @@ const styles = StyleSheet.create({
     // backgroundColor: "white",
     alignContent: "center",
     justifyContent: "center"
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+    // backgroundColor: '#000',
+  },
+  failureBox: {
+    width: 250,
+    height: 250,
+    borderRadius: 200,
+    justifyContent: "center",
+    alignSelf: "center",
+    backgroundColor: "grey"
+  },
+  textStyle: {
+    fontSize: 26,
+    fontFamily: "sans-serif-medium",
+    color: "orange",
+    alignSelf: "center"
   }
 });
 

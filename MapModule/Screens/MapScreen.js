@@ -32,7 +32,7 @@ import "firebase/firestore";
 import FooterButtonContainer from "../components/buttons";
 import Map from "../components/Map";
 
-import IssueScreen from "../../IssueModule/IssueScreen";
+import IssueScreen from "../../IssueModule/MainNavigator";
 
 // let count = 0;
 let locations = 0;
@@ -49,200 +49,63 @@ const theme = {
 
 export default class App extends Component {
   state = {
-    // mapRegion: null,
-    // hasLocationPermissions: false,
-    // locationResult: null,
     screenOpacity: 1,
     count: 0
   };
 
   render() {
-    // console.log(this.state);
-    // if (count == 0) {
-    //   {
-    //     locations = this._getLocation();
-    //     count++;
-    //   }
-    // }
     const { x } = theme.colors.primary;
 
     console.log("count above", this.state.count);
     return (
-      // <PaperProvider theme={useTheme()}>
       <>
-        {this.state.count != 0 ? (
-          <IssueScreen />
-        ) : (
-          <View
-            style={{ ...styles.container, opacity: this.state.screenOpacity }}
-          >
-            <View style={styles.header}>
-              <View style={{ alignItems: "center" }}>
-                <Text style={styles.headerText}>PowerBank_Rentalma</Text>
-              </View>
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  position: "absolute",
-                  top: 58
-                }}
-                underlayColor="#DDDDDD"
-                onPress={() => console.log("Menu")}
-              >
-                <View flexDirection="row" justifyContent="center">
-                  <Icon name="menu" />
-                  <Text style={{ fontSize: 20 }}>Menu</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.borrowReturnButtonContainer}>
-              <TouchableHighlight
-                underlayColor="#DDDDDD"
-                onPress={async () => {
-                  // await setTimeout(() => {
-                  //   count = count + 1;
-                  // }, 3000);
-                  this.setState({ count: 1 });
-                  console.log("Borrow");
-                  console.log("count", this.state.count, this.state.count != 0);
-                }}
-              >
-                <View style={styles.borrowButtonWrapper}>
-                  <Icon name="shop" size={25} color="#6b03fc" />
-                  <Text style={styles.borrowButton}>Borrow</Text>
-                </View>
-              </TouchableHighlight>
-
-              <TouchableHighlight
-                underlayColor="#DDDDDD"
-                onPress={() => console.log("Return")}
-              >
-                <View style={styles.returnButtonWrapper}>
-                  <Icon name="shop" size={25} color="#8c03fc" />
-                  <Text style={{ fontSize: 18, color: "#8c03fc" }}>Return</Text>
-                </View>
-              </TouchableHighlight>
-            </View>
-
-            <View style={{ flex: 1, width: "100%", zIndex: -1 }}>
-              <Map
-              // mapRegion={this.state.mapRegion}
-              // handleMapRegion={this.state._handleMapRegion}
-              />
-            </View>
-
-            <View style={{ width: "100%" }}>
-              <FooterButtonContainer />
-            </View>
-
-            {/* <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modal}
-          onRequestClose={this.hideModal}
-          style={{
-            Overlay: "grey"
-          }}
+        <View
+          style={{ ...styles.container, opacity: this.state.screenOpacity }}
         >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignItems: "center",
-              position: "absolute",
-              bottom: 2,
-              width: "100%",
-              backgroundColor: "#ff6619"
-            }}
-          >
-            <Card close={this.hideModal} />
+          <View style={styles.borrowReturnButtonContainer}>
+            <TouchableHighlight
+              underlayColor="#DDDDDD"
+              onPress={async () => {
+                // console.log("Borrow");
+                // console.log("count", this.state.count, this.state.count != 0);
+                this.props.navigation.navigate("CameraScreen", {
+                  type: "Borrow"
+                });
+              }}
+            >
+              <View style={styles.borrowButtonWrapper}>
+                <Icon name="shop" size={25} color="#6b03fc" />
+                <Text style={styles.borrowButton}>Borrow</Text>
+              </View>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+              underlayColor="#DDDDDD"
+              onPress={() =>
+                this.props.navigation.navigate("CameraScreen", {
+                  type: "Return"
+                })
+              }
+            >
+              <View style={styles.returnButtonWrapper}>
+                <Icon name="shop" size={25} color="#8c03fc" />
+                <Text style={{ fontSize: 18, color: "#8c03fc" }}>Return</Text>
+              </View>
+            </TouchableHighlight>
           </View>
-        </Modal> */}
+
+          <View style={{ flex: 1, width: "100%", zIndex: -1 }}>
+            <Map
+            // mapRegion={this.state.mapRegion}
+            // handleMapRegion={this.state._handleMapRegion}
+            />
           </View>
-        )}
+
+          <View style={{ width: "100%" }}>
+            <FooterButtonContainer />
+          </View>
+        </View>
       </>
-      // <View style={{ ...styles.container, opacity: this.state.screenOpacity }}>
-      //   <View style={styles.header}>
-      //     <View style={{ alignItems: "center" }}>
-      //       <Text style={styles.headerText}>PowerBank_Rentalma</Text>
-      //     </View>
-      //     <TouchableOpacity
-      //       style={{
-      //         flex: 1,
-      //         flexDirection: "row",
-      //         position: "absolute",
-      //         top: 58
-      //       }}
-      //       underlayColor="#DDDDDD"
-      //       onPress={() => console.log("Menu")}
-      //     >
-      //       <View flexDirection="row" justifyContent="center">
-      //         <Icon name="menu" />
-      //         <Text style={{ fontSize: 20 }}>Menu</Text>
-      //       </View>
-      //     </TouchableOpacity>
-      //   </View>
-
-      //   <View style={styles.borrowReturnButtonContainer}>
-      //     <TouchableHighlight
-      //       underlayColor="#DDDDDD"
-      //       onPress={() => console.log("Borrow")}
-      //     >
-      //       <View style={styles.borrowButtonWrapper}>
-      //         <Icon name="shop" size={25} color="#6b03fc" />
-      //         <Text style={styles.borrowButton}>Borrow</Text>
-      //       </View>
-      //     </TouchableHighlight>
-
-      //     <TouchableHighlight
-      //       underlayColor="#DDDDDD"
-      //       onPress={() => console.log("Return")}
-      //     >
-      //       <View style={styles.returnButtonWrapper}>
-      //         <Icon name="shop" size={25} color="#8c03fc" />
-      //         <Text style={{ fontSize: 18, color: "#8c03fc" }}>Return</Text>
-      //       </View>
-      //     </TouchableHighlight>
-      //   </View>
-
-      //   <View style={{ flex: 1, width: "100%", zIndex: -1 }}>
-      //     <Map
-      //     // mapRegion={this.state.mapRegion}
-      //     // handleMapRegion={this.state._handleMapRegion}
-      //     />
-      //   </View>
-
-      //   <View style={{ width: "100%" }}>
-      //     <FooterButtonContainer />
-      //   </View>
-
-      //   {/* <Modal
-      //     animationType="slide"
-      //     transparent={true}
-      //     visible={this.state.modal}
-      //     onRequestClose={this.hideModal}
-      //     style={{
-      //       Overlay: "grey"
-      //     }}
-      //   >
-      //     <View
-      //       style={{
-      //         flexDirection: "row",
-      //         justifyContent: "space-around",
-      //         alignItems: "center",
-      //         position: "absolute",
-      //         bottom: 2,
-      //         width: "100%",
-      //         backgroundColor: "#ff6619"
-      //       }}
-      //     >
-      //       <Card close={this.hideModal} />
-      //     </View>
-      //   </Modal> */}
-      // </View>
-      // </PaperProvider>
     );
   }
 }
@@ -250,7 +113,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 25,
+    // marginTop: 25,
     backgroundColor: "rgba(0,0,0,0)",
     alignItems: "center",
     justifyContent: "center"
@@ -281,9 +144,9 @@ const styles = StyleSheet.create({
 
   borrowReturnButtonContainer: {
     position: "absolute",
-    top: "18%",
+    top: "8%",
     flexDirection: "row",
-    width: "70%",
+    width: "85%",
     justifyContent: "space-between",
     alignContent: "center"
   },

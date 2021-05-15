@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const ProfileListItem = (props) => {
+const ProfileListItem = props => {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -16,7 +16,7 @@ const ProfileListItem = (props) => {
         </View>
       </View>
       <View style={styles.textContainer}>
-        <Text style={[styles.text, { fontWeight: "200", fontSize: 25 }]}>
+        <Text style={[styles.text, { fontWeight: "200", fontSize: 17 }]}>
           {" "}
           {props.textItem}
         </Text>
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: "row",
     justifyContent: "center",
-    alignContent: "center",
+    alignContent: "center"
   },
   iconContainer: {
     flex: 2,
     justifyContent: "center",
-    alignContent: "center",
+    alignContent: "center"
     // backgroundColor:'red',
   },
   icon: {
@@ -48,19 +48,19 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center",
+    alignSelf: "center"
   },
   textContainer: {
     flex: 8,
     alignItems: "flex-start",
     left: 10,
-    justifyContent: "center",
+    justifyContent: "center"
     // backgroundColor:'yellow'
   },
   text: {
     fontFamily: "sans-serif-medium",
-    color: "#52575D",
-  },
+    color: "#52575D"
+  }
 });
 
 export default ProfileListItem;

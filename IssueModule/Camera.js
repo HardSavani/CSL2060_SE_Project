@@ -48,7 +48,6 @@ const CameraScreen = ({ navigation, route }) => {
       // } else if (route.params.type == "Return" && scanned == true) {
       //   return navigation.push("Success_Return", { stype: type, sdata: data });
 
-      // await delay(3500);
       count = count + 1;
 
       if (route.params.type == "Borrow") {

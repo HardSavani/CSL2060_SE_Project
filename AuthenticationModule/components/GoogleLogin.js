@@ -14,6 +14,8 @@ import firebase from "../../firebase";
 import UserLoggedInScreen from "../screens/UserLoggedInScreen";
 
 import MapScreen from "../../MapModule/Screens/MapScreen";
+import IssueScreen from "../../IssueModule/MainNavigator";
+import Profile from "../../IssueModule/Profile";
 
 var app = firebase.app();
 // console.log("APP", app);
@@ -27,15 +29,6 @@ var userDatabase = firebase.firestore().collection("Users");
 var vendingMachineDatabase = firebase
   .firestore()
   .collection("Vending-Machines");
-
-// userDatabase.get().then(querySnapShot => {
-//   // console.log(querySnapShot);
-//   querySnapShot.forEach(doc => {
-//     console.log("doc", doc);
-//     console.log("doc.data", doc.data());
-//     console.log("doc.id", doc.id);
-//   });
-// });
 
 export default class GoogleLogin extends React.Component {
   constructor(props) {
@@ -105,7 +98,8 @@ export default class GoogleLogin extends React.Component {
                   RollNumber: result.additionalUserInfo.profile.family_name,
                   Email: result.user.email,
                   Photo: result.additionalUserInfo.profile.picture,
-                  Residence: "",
+                  Residence: "-",
+                  Phone_Number: "-",
                   CurrentIssue: {
                     borrow_time: "",
                     PowerBank_UID: "",
@@ -148,10 +142,7 @@ export default class GoogleLogin extends React.Component {
               // ...
               console.log(error);
             });
-          console.log(
-            "Yeah here is the current user",
-            firebase.auth().currentUser
-          );
+          console.log("Here is the current user", firebase.auth().currentUser);
         } else {
           console.log("User already signed-in Firebase.");
         }
@@ -170,11 +161,13 @@ export default class GoogleLogin extends React.Component {
 
   signIn = async () => {
     try {
-      console.log(firebase.auth().currentUser);
+      // console.log(firebase.auth().currentUser);
       const result = await Expo.logInAsync({
         androidClientId:
-          "655472426402-4tkiqfrbkjdkum9humu7he9atgoe21bd.apps.googleusercontent.com",
+          "655472426402-65f64u3sdij8ab43pkd0ijf4ris88ed7.apps.googleusercontent.com",
         scopes: ["profile", "email"]
+        // androidStandaloneAppClientId:
+        //   "655472426402-4tkiqfrbkjdkum9humu7he9atgoe21bd.apps.googleusercontent.com"
       });
 
       if (result.type === "success") {
@@ -184,8 +177,6 @@ export default class GoogleLogin extends React.Component {
           photoUrl: result.user.photoUrl
         });
         this.onSignIn(result);
-
-        // this.props.userLoggedIn();
 
         this.props.changeX();
 
@@ -218,22 +209,11 @@ export default class GoogleLogin extends React.Component {
     return (
       <View style={styles.container}>
         {this.state.signedIn ? (
-          // <UserLoggedInScreen
-          //   name={this.state.name}
-          //   photoUrl={this.state.photoUrl}
-          //   changeState={() => {
-          //     this.setState({
-          //       signedIn: false,
-          //       name: "",
-          //       photoUrl: ""
-          //     });
-          //   }}
-          // />
           <MapScreen />
         ) : (
           // <LoginPage signIn={this.signIn} />
           // <LoginScreen signIn={this.signIn} />
-          <Text>{this.state.nonLoggedInText}</Text>
+          <Text style={{ fontSize: 20 }}>{this.state.nonLoggedInText}</Text>
         )}
       </View>
     );

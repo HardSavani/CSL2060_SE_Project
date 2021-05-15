@@ -25,12 +25,21 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions": ["ACCESS_FINE_LOCATION"]
+      "package": "com.hard.powerbank",
+      "config": {
+        "googleSignIn": {
+          "certificateHash": "2FCFE1B7BC608D2F8B2CE9FB6789868C02D57DFB",
+          "apiKey": "AIzaSyDvFdn0l8rwcVfZArvW6PQN1Jqq9lKToR0"
+        },
+        "googleMaps": {
+          "apiKey": "AIzaSyDU53hQ82eXbz-mJvbD2BleT73BHQ0GDyU"
+        }
+      },
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
     }
   }
 }
-
-// "permissions": ["ACCESS_FINE_LOCATION"]

@@ -1,122 +1,56 @@
+// IMPORTING LIBRARIES USED HERE
+
 import React, { useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { Icon } from "react-native-elements";
 
-// import * as firebase from "firebase";
-// import "firebase/firestore";
-// import { firebaseConfig } from "../config";
-
-// try {
-//   firebase.initializeApp(firebaseConfig);
-// } catch (e) {
-//   console.log("error");
-// }
+// IMPORTING FIREBASE CONFIGURATION TO USE IT DIRECTLY HERE
 
 import firebase from "../firebase";
 
-let count = 0;
+// INITIALIZING THE USER DATABASE AND VENDINGMACHINE DATABASE
 
 var userDatabase = firebase.firestore().collection("Users");
 var vendingMachineDatabase = firebase.firestore().collection("Vending-Machine");
 
+let count = 0;
+let isBorrowed = 0;
+
 const width = Dimensions.get("screen").width;
 
-const userId = "ghantawalajhumroolal69";
+// DEFINING COMPONENT SuccessBox_Borrow
 
 const SuccessBox_Borrow = props => {
+  // INITIALIZING STATES
+
   const [PowerId, setPowerId] = useState("");
   const [SlotKey, setSlotKey] = useState("");
   const [Count, setCount] = useState(0);
 
-  var current = new Date();
+  // LDAP OF A SYSTEM IN IITJ-SYSTEM
 
   const ldapCurrentUser = firebase
     .auth()
     .currentUser.email.toString()
     .split("@")[0];
 
-  // await vendingMachineDatabase
-  //   .doc(props.sdata)
+  // userDatabase
+  //   .doc(ldapCurrentUser)
   //   .get()
-  //   .then((doc) => {
-  //     const data = doc.data();
-  //     // console.log(data.Slot_A);
-  //     Object.entries(data).forEach(([key, value]) => {
-  //       console.log(value);
-  //       console.log(key);
+  //   .then(doc => {
+  //     if (doc.data().CurrentIssue.borrow_time == "") {
+  //       count = 0;
+  //     } else {
+  //       count = 1;
+  //     }
+  //   });
 
-  //       if (value.Status === "Fully Charged" && Count === 0) {
-  //         setPowerId(value.PowerBank_UID);
-  //         setSlotKey(key);
-  //         setCount(1);
-  //         // console.log(Slot); // This is working but down there, not printing
-  //         // console.log(PowerID);
-  //       }
+  var current = new Date();
 
-  //       // if (key == "Slot_A") {
-  //       //   console.log("YES");
-  //       //   console.log("UID of the powerbank is:", value.PowerBank_UID);
-  //       //   console.log("Status of the powerbank is:", value.Status);
-  //       // }
-  //     });
-  //   });
-  // console.log(
-  //   "<-------------------------End of Loop-------------------------->",
-  //   SlotKey
-  // );
-  // console.log();
-  // if (SlotKey == "Slot-A") {
-  //   vendingMachineDatabase.doc(props.sdata).update({
-  //     "Slot-A": {
-  //       PowerBank_UID: "",
-  //       Status: "Empty",
-  //     },
-  //   });
-  // } else if (SlotKey == "Slot-B") {
-  //   vendingMachineDatabase.doc(props.sdata).update({
-  //     "Slot-B": {
-  //       PowerBank_UID: "",
-  //       Status: "Empty",
-  //     },
-  //   });
-  // } else if (SlotKey == "Slot-C") {
-  //   vendingMachineDatabase.doc(props.sdata).update({
-  //     "Slot-C": {
-  //       PowerBank_UID: "",
-  //       Status: "Empty",
-  //     },
-  //   });
-  // } else if (SlotKey == "Slot-D") {
-  //   vendingMachineDatabase.doc(props.sdata).update({
-  //     "Slot-D": {
-  //       PowerBank_UID: "",
-  //       Status: "Empty",
-  //     },
-  //   });
-  // } else if (SlotKey == "Slot-E") {
-  //   vendingMachineDatabase.doc(props.sdata).update({
-  //     "Slot-E": {
-  //       PowerBank_UID: "",
-  //       Status: "Empty",
-  //     },
-  //   });
-  // } else if (SlotKey == "Slot-F") {
-  //   vendingMachineDatabase.doc(props.sdata).update({
-  //     "Slot-F": {
-  //       PowerBank_UID: "",
-  //       Status: "Empty",
-  //     },
-  //   });
-  // }
-
-  // let PowerId = "empty";
-  // let SlotKey = "empty";
-  // let Count = 0;
-
-  // console.log(firebase.auth().currentUser);
+  // FUNCTION FOR UPDATING DATA IN DATABASES
 
   async function update() {
-    console.log("props.sdata", props.sdata);
     await vendingMachineDatabase
       .doc(props.sdata)
       .get()
@@ -129,12 +63,12 @@ const SuccessBox_Borrow = props => {
           if (value.Status === "Fully Charged" && count === 0) {
             setPowerId(value.PowerBank_UID);
             setSlotKey(key);
-            // setCount(1);
             count = count + 1;
-            // console.log(count);
           }
         });
       });
+
+    // FUNCTION FOR GENERATING UNIQUE ID FOR EACH TRANSACTION
 
     function generateTransactionID() {
       var string =
@@ -153,23 +87,21 @@ const SuccessBox_Borrow = props => {
     }
 
     async function x() {
-      console.log("SlotKey", SlotKey);
+      // console.log("SlotKey", SlotKey);
       if (SlotKey != "") {
         const borrowedPowerBank_UID = PowerId;
         const transactionID = generateTransactionID();
         const currentDue = 0;
-
-        // console.log(current.toLocaleTimeString());
 
         var borrowTime = current.getHours().toString();
         borrowTime += ":";
         borrowTime += current.getMinutes().toString();
 
         var borrowDate = current.getDate().toString();
-        borrowDate += ":";
+        borrowDate += "/";
         borrowDate +=
           (current.getMonth() + 1).toString() +
-          ":" +
+          "/" +
           current.getFullYear().toString();
 
         await userDatabase.doc(ldapCurrentUser).update({
@@ -182,23 +114,13 @@ const SuccessBox_Borrow = props => {
           }
         });
 
-        // await userDatabase.doc(ldapCurrentUser).Transactions.add({
-        //   x: {
-        //     transactionID: transactionID,
-        //     Status: "On-Going"
-        //   }
-        // });
-
         var transactions;
         await userDatabase
           .doc(ldapCurrentUser)
           .get()
           .then(doc => {
-            // console.log(doc.data());
-            // console.log("Roll", doc.data().Transactions);
             transactions = doc.data().Transactions;
           });
-        console.log("transaction", transactions);
         transactions[transactionID] = {
           Status: "On-going",
           PowerBank_UID: borrowedPowerBank_UID,
@@ -210,10 +132,6 @@ const SuccessBox_Borrow = props => {
           Transactions: transactions
         });
 
-        // userDatabase.doc;
-        // await userDatabase.doc(ldapCurrentUser).ref
-
-        //
         if (SlotKey == "Slot-A") {
           vendingMachineDatabase.doc(props.sdata).update({
             "Slot-A": {
@@ -267,31 +185,32 @@ const SuccessBox_Borrow = props => {
     update();
   }
   return (
-    <View style={styles.mask}>
-      <View style={styles.box}>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}> Machine: {props.sdata} </Text>
-        </View>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}> PowerBank Id: {PowerId} </Text>
-        </View>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}> {SlotKey} </Text>
-        </View>
-        <View style={styles.boxsub}>
-          <Text style={styles.boxtext}>
-            {" "}
-            Borrowed at:{" "}
-            {current.getDate().toString() +
-              ":" +
-              (current.getMonth() + 1).toString() +
-              ":" +
-              current.getFullYear().toString()}
-          </Text>
-          <Text>Borrowed by : {firebase.auth().currentUser.displayName}</Text>
+    <>
+      <View style={styles.mask}>
+        <View style={styles.box}>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}> Machine: {props.sdata} </Text>
+          </View>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}> PowerBank Id: {PowerId} </Text>
+          </View>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}> {SlotKey} </Text>
+          </View>
+          <View style={styles.boxsub}>
+            <Text style={styles.boxtext}>
+              {" "}
+              Borrowed at:{" "}
+              {current.getDate().toString() +
+                ":" +
+                (current.getMonth() + 1).toString() +
+                ":" +
+                current.getFullYear().toString()}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -320,7 +239,6 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(3),
     color: `#2f4f4f`,
     textAlign: "center"
-    // backgroundColor: "white",
   },
   mask: {
     flex: 1,
@@ -330,6 +248,26 @@ const styles = StyleSheet.create({
     // backgroundColor: "white",
     alignContent: "center",
     justifyContent: "center"
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+    // backgroundColor: '#000',
+  },
+  failureBox: {
+    width: 250,
+    height: 250,
+    borderRadius: 200,
+    justifyContent: "center",
+    alignSelf: "center",
+    backgroundColor: "grey"
+  },
+  textStyle: {
+    fontSize: 26,
+    fontFamily: "sans-serif-medium",
+    color: "orange",
+    alignSelf: "center"
   }
 });
 
