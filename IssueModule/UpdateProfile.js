@@ -53,30 +53,30 @@ const UpdateProfile = ({ navigation }) => {
             onChangeText={phone => setPhone(phone)}
           />
         </View>
-        <View style={{ padding: 10 }}>
-          <TextInput
-            label="Thing1"
-            mode="outlined"
-            value={thing1}
-            onChangeText={thing1 => setThing1(thing1)}
-          />
-        </View>
-        <View style={{ padding: 10 }}>
-          <TextInput
-            label="Thing2"
-            mode="outlined"
-            value={thing2}
-            onChangeText={thing2 => setThing2(thing2)}
-          />
-        </View>
-        <View style={{ padding: 10 }}>
-          <TextInput
-            label="Thing1"
-            mode="outlined"
-            value={thing3}
-            onChangeText={thing3 => setThing3(thing3)}
-          />
-        </View>
+//         <View style={{ padding: 10 }}>
+//           <TextInput
+//             label="Thing1"
+//             mode="outlined"
+//             value={thing1}
+//             onChangeText={thing1 => setThing1(thing1)}
+//           />
+//         </View>
+//         <View style={{ padding: 10 }}>
+//           <TextInput
+//             label="Thing2"
+//             mode="outlined"
+//             value={thing2}
+//             onChangeText={thing2 => setThing2(thing2)}
+//           />
+//         </View>
+//         <View style={{ padding: 10 }}>
+//           <TextInput
+//             label="Thing1"
+//             mode="outlined"
+//             value={thing3}
+//             onChangeText={thing3 => setThing3(thing3)}
+//           />
+//         </View>
       </View>
       <View style={styles.buttonContainer}>
         <Button
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     // flex: 1,
+    top: 20,
     justifyContent: "center",
     alignContent: "center",
     width: "85%",
