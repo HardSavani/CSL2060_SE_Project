@@ -8,6 +8,7 @@ import SuccessBox_Borrow from "./SuccessBox_Borrow";
 const width = Dimensions.get("screen").width;
 
 const Success_Borrow = ({ navigation, route }) => {
+  // DISPLAYING BORROW DETAILS TO USER
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.heading}>
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     flex: 0.1,
-    padding: 25, // make it 35 after removing top shit saying Success
+    padding: 25, 
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
