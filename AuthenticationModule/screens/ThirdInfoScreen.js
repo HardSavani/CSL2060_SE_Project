@@ -8,12 +8,7 @@ import GoogleLogin from "../components/GoogleLogin";
 
 const navigationRef = React.createRef();
 
-// function navigate(name, params) {
-//   navigationRef.current && navigationRef.current.navigate(name, params);
-// }
-
 function InfoScreen({ navigation }) {
-  console.log("coming..");
   return (
     <View style={styles.screen}>
       <Text style={{ fontSize: 30 }}>Third Page</Text>
@@ -38,7 +33,6 @@ function ThirdInfoScreen() {
       }}
     >
       <Text>Here</Text>
-      {/* <View> */}
       <NavigationContainer style={StyleSheet.absoluteFillObject}>
         <Stack.Navigator initialRouteName="Home">
           {/* <InfoScreen /> */}
@@ -46,7 +40,6 @@ function ThirdInfoScreen() {
           <Stack.Screen name="login" component={GoogleLogin} />
         </Stack.Navigator>
       </NavigationContainer>
-      {/* </View> */}
     </View>
   );
 }

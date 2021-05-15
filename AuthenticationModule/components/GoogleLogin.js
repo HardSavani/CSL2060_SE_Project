@@ -2,14 +2,6 @@ import React from "react";
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 import * as Expo from "expo-google-app-auth";
 
-// import { firebaseConfig } from "../../config";
-
-// try {
-//   firebase.initializeApp(firebaseConfig);
-// } catch (e) {
-//   console.log("error");
-// }
-
 import firebase from "../../firebase";
 import UserLoggedInScreen from "../screens/UserLoggedInScreen";
 
@@ -18,12 +10,6 @@ import IssueScreen from "../../IssueModule/MainNavigator";
 import Profile from "../../IssueModule/Profile";
 
 var app = firebase.app();
-// console.log("APP", app);
-
-// var userDatabase = firebase.firestore().collection("Users");
-// var vendingMachineDatabase = firebase
-//   .firestore()
-//   .collection("Vending-Machines");
 
 var userDatabase = firebase.firestore().collection("Users");
 var vendingMachineDatabase = firebase
@@ -61,37 +47,29 @@ export default class GoogleLogin extends React.Component {
   };
 
   onSignIn = googleUser => {
-    // console.log("Google Auth Response", googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+
     var unsubscribe = firebase.auth().onAuthStateChanged(
       function(firebaseUser) {
         unsubscribe();
+
         // Check if we are already signed-in Firebase with the correct user.
+
         if (!this.isUserEqual(googleUser, firebaseUser)) {
           // Build Firebase credential with the Google ID token.
+
           var credential = firebase.auth.GoogleAuthProvider.credential(
             googleUser.idToken,
             googleUser.accessToken
           );
 
           // Sign in with credential from the Google user.
+
           firebase
             .auth()
             .signInWithCredential(credential)
             .then(function(result) {
               if (result.additionalUserInfo.isNewUser) {
-                // firebase
-                //   .database()
-                //   .ref("/users" + result.user.uid)
-                //   .set({
-                //     gmail: result.user.email,
-                //     profile_picture: result.additionalUserInfo.profile.picture,
-                //     locale: result.additionalUserInfo.profile.locale,
-                //     name: result.additionalUserInfo.profile.given_name,
-                //     roll_number: result.additionalUserInfo.profile.family_name,
-                //     created_at: Date.now()
-                //   });
-
                 const ldap = result.user.email.toString().split("@")[0];
                 userDatabase.doc(ldap).set({
                   Name: result.additionalUserInfo.profile.given_name,
@@ -119,12 +97,6 @@ export default class GoogleLogin extends React.Component {
                   created_at: Date.now()
                 });
               } else {
-                // firebase
-                //   .database()
-                //   .ref("/users" + result.user.uid)
-                //   .update({
-                //     last_logged_in: Date.now()
-                //   });
                 const ldap = result.user.email.toString().split("@")[0];
                 userDatabase.doc(ldap).update({
                   last_logged_in: Date.now()
@@ -140,11 +112,8 @@ export default class GoogleLogin extends React.Component {
               // The firebase.auth.AuthCredential type that was used.
               var credential = error.credential;
               // ...
-              console.log(error);
             });
-          console.log("Here is the current user", firebase.auth().currentUser);
         } else {
-          console.log("User already signed-in Firebase.");
         }
         firebase.auth().signOut();
       }.bind(this)
@@ -161,7 +130,6 @@ export default class GoogleLogin extends React.Component {
 
   signIn = async () => {
     try {
-      // console.log(firebase.auth().currentUser);
       const result = await Expo.logInAsync({
         androidClientId:
           "655472426402-65f64u3sdij8ab43pkd0ijf4ris88ed7.apps.googleusercontent.com",
@@ -179,12 +147,8 @@ export default class GoogleLogin extends React.Component {
         this.onSignIn(result);
 
         this.props.changeX();
-
-        // return result.accessToken;
         return "success";
       } else {
-        console.log("cancelled");
-
         this.changeState();
 
         return "cancelled";
@@ -197,10 +161,6 @@ export default class GoogleLogin extends React.Component {
     }
   };
 
-  // componentWillUnmount() {
-  //   this.onSignIn();
-  // }
-
   componentDidMount() {
     this.signIn();
   }
@@ -211,8 +171,6 @@ export default class GoogleLogin extends React.Component {
         {this.state.signedIn ? (
           <MapScreen />
         ) : (
-          // <LoginPage signIn={this.signIn} />
-          // <LoginScreen signIn={this.signIn} />
           <Text style={{ fontSize: 20 }}>{this.state.nonLoggedInText}</Text>
         )}
       </View>
