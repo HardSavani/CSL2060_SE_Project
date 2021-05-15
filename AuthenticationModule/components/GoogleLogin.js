@@ -86,13 +86,7 @@ export default class GoogleLogin extends React.Component {
                   },
                   Dues: 0,
                   Transactions: {
-                    "dummy-transaction": {
-                      status: "",
-                      PowerBank_UID: "",
-                      borrow_time: "",
-                      return_time: "",
-                      due: 0
-                    }
+                    
                   },
                   created_at: Date.now()
                 });
