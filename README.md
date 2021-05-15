@@ -10,4 +10,4 @@ This is a PowerBank Rental App to feciliate borrowing and returning the powerban
 2. Navigate to CSL2060_SE_Project using cd command
 3. Run npm install    
 4. Run npm install react-native-safe-area-context
-5. If above two steps yield any permission error, try sudo before the commands. If there is further error, try using expo instaed of npm
+5. If above two steps yield any permission error, try sudo before the commands. If there is further error, try using expo instead of npm
