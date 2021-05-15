@@ -12,7 +12,7 @@ import IssueScreen from "./IssueModule/MainNavigator";
 
 import firebase from "./firebase";
 
-// console.disableYellowBox = true;
+console.disableYellowBox = true;
 
 var userDatabase = firebase.firestore().collection("Users");
 var vendingMachineDatabase = firebase
