@@ -1,3 +1,5 @@
+// Importing Libraries used in below components
+
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -7,7 +9,7 @@ import {
   Dimensions,
   SafeAreaView
 } from "react-native";
-//import { BarCodeScanner } from 'expo-barcode-scanner';
+
 import { Camera } from "expo-camera";
 import { Icon } from "react-native-elements";
 import Torch from "react-native-torch";
@@ -15,13 +17,15 @@ import Torch from "react-native-torch";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 
-//const screenRatio = height / width;
+// Function for time delay
 
 function delay(time) {
   return new Promise(function(resolve, reject) {
     setTimeout(() => resolve(), time);
   });
 }
+
+// Component for handling Camera Screen
 
 const CameraScreen = ({ navigation, route }) => {
   let count = 0;
@@ -30,23 +34,19 @@ const CameraScreen = ({ navigation, route }) => {
   const [scanned, setScanned] = useState(false);
   const [isTorchOn, setIsTorchOn] = useState(false);
 
-  //const ratios = await Camera
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
+  
+  // Handles scanning of QR Code
 
   async function handleBarCodeScanned({ type, data }) {
     console.log("count", count);
     if (count === 0) {
       await setScanned(true);
-      // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-      // if (route.params.type == "Borrow" && scanned == true) {
-      //   return navigation.push("Success_Borrow", { stype: type, sdata: data });
-      // } else if (route.params.type == "Return" && scanned == true) {
-      //   return navigation.push("Success_Return", { stype: type, sdata: data });
 
       count = count + 1;
 
@@ -100,16 +100,13 @@ const CameraScreen = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      {/* {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-      )} */}
+
       <View style={styles.cancel}>
         <Icon
           name="close"
           type="material"
           color="black"
           raised="true"
-          // brand="true"
           reverse="true"
           reverseColor="white"
           size={30}
@@ -131,10 +128,11 @@ const CameraScreen = ({ navigation, route }) => {
   );
 };
 
+// Defining Styles used in above components
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#2f4f4f",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -168,12 +166,9 @@ const styles = StyleSheet.create({
   },
   camera: {
     ...StyleSheet.absoluteFillObject
-    // top: 40,
   },
   cancel: {
     flex: 1,
-    // paddingLeft: 7,
-    // paddingRight: 7,
     paddingVertical: 25,
     width: "80%",
     flexDirection: "row",
@@ -181,13 +176,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   mask: {
-    // ...StyleSheet.absoluteFill,
-    // height: "75%",
-    // width: "80%",
     flex: 10,
     padding: 10,
-    // backgroundColor: "white",
-    // top: 40,
     alignItems: "center",
     justifyContent: "center"
   }
