@@ -1,3 +1,5 @@
+// Importing Libraries used here
+
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -14,36 +16,35 @@ import { Ionicons } from "@expo/vector-icons";
 import Separator from "./Separator";
 import ProfileListItem from "./ProfileListItem";
 
-// var ImgSrc =
-//   "https://149366112.v2.pressablecdn.com/wp-content/uploads/2019/03/shutterstock_1693785667-scaled.jpg";
-// var Name = "Shivam Sharma";
-// var Email = "the CoolPerson69@iitj.ac.in";
-// var Residence = "353, Hostel B5";
-// var Phone = "9910880932";
-
 var ImgSrc;
 var Name;
 var Email;
-// var Residence;
 var Phone;
+
+// Importing Firebase configuration
 
 import firebase from "../firebase";
 
 var userDatabase = firebase.firestore().collection("Users");
 var vendingMachineDatabase = firebase.firestore().collection("Vending-Machine");
 
+// Component handling display of Profile Screen 
+
 const Profile = ({ navigation }) => {
   const [hasDataBeenFetched, setHasDataBeenFetched] = useState(false);
   const [Residence, setResidence] = useState("-");
   const [Phone, setPhone] = useState("-");
+  
+  // Retrieving LDAP from EMAIL_ID in IITJ-System
 
   const ldapCurrentUser = firebase
     .auth()
     .currentUser.email.toString()
     .split("@")[0];
+  
+  // Fetching user data from Database
 
   async function fetchData() {
-    console.log("Doing..");
     var x;
 
     await userDatabase
@@ -53,9 +54,7 @@ const Profile = ({ navigation }) => {
         Name = doc.data().Name;
         Email = doc.data().Email;
         ImgSrc = doc.data().Photo;
-        // Residence = doc.data().Residence;
         setResidence(doc.data().Residence);
-        // Phone = doc.data().Phone_Number;
         setPhone(doc.data().Phone_Number);
       });
     setHasDataBeenFetched(true);
@@ -66,14 +65,9 @@ const Profile = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       fetchData();
-      console.log("Changing");
       console.log(Residence);
     }, [])
   );
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   const isFocused = useIsFocused();
 
@@ -141,6 +135,8 @@ const Profile = ({ navigation }) => {
   );
 };
 
+// Styles
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -153,7 +149,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: undefined,
     width: undefined,
-    // backgroundColor: "black",
     resizeMode: "stretch"
   },
   profileImage: {
