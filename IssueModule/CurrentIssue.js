@@ -23,7 +23,7 @@ const CurrentIssue = ({ navigation, route }) => {
   var time = -1;
   var dues = 0;
 
-  // LDAP OF A SYSTEM IN IITJ-SYSTEM
+  // RETRIEVING LDAP FROM EMAIL_ID IN IITJ-SYSTEM
 
   const ldapCurrentUser = firebase
     .auth()
@@ -55,6 +55,7 @@ const CurrentIssue = ({ navigation, route }) => {
       });
 
     // SETTING STATE DATA TO FETCHED-DATA AND HASDATABEENFETCHED TO TRUE, AS DATA HAS BEEN FECTHED
+    
     setData(x);
     setHasDataBeenFetched(true);
 
@@ -117,6 +118,7 @@ const CurrentIssue = ({ navigation, route }) => {
   );
 
   return (
+    
     // IF DATA HAS BEEN FETCHED, SHOW DETAILS OF FETCHED DATA, OTHERWISE SHOW LOADING SCREEN
 
     <>
@@ -192,7 +194,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    // justifyContent: "center",
     backgroundColor: "white",
     padding: 10
   }
