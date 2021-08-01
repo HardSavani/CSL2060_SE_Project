@@ -22,29 +22,19 @@ const width = Dimensions.get("screen").width;
 // DEFINING COMPONENT SuccessBox_Borrow
 
 const SuccessBox_Borrow = props => {
+  
   // INITIALIZING STATES
 
   const [PowerId, setPowerId] = useState("");
   const [SlotKey, setSlotKey] = useState("");
   const [Count, setCount] = useState(0);
 
-  // LDAP OF A SYSTEM IN IITJ-SYSTEM
+  // RETRIEVING LDAP FROM EMAIL_ID IN IITJ-SYSTEM
 
   const ldapCurrentUser = firebase
     .auth()
     .currentUser.email.toString()
     .split("@")[0];
-
-  // userDatabase
-  //   .doc(ldapCurrentUser)
-  //   .get()
-  //   .then(doc => {
-  //     if (doc.data().CurrentIssue.borrow_time == "") {
-  //       count = 0;
-  //     } else {
-  //       count = 1;
-  //     }
-  //   });
 
   var current = new Date();
 
@@ -56,7 +46,7 @@ const SuccessBox_Borrow = props => {
       .get()
       .then(doc => {
         const data = doc.data();
-        // console.log("data", data);
+      
         Object.entries(data).forEach(([key, value]) => {
           console.log(key, value.Status, count);
 
@@ -87,7 +77,7 @@ const SuccessBox_Borrow = props => {
     }
 
     async function x() {
-      // console.log("SlotKey", SlotKey);
+      
       if (SlotKey != "") {
         const borrowedPowerBank_UID = PowerId;
         const transactionID = generateTransactionID();
@@ -219,21 +209,15 @@ const styles = StyleSheet.create({
     width: width * 0.8,
     height: width * 0.8,
     backgroundColor: `#87ceeb`,
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignContent: "center",
     borderRadius: 20,
     borderWidth: 4,
     padding: 10
   },
   boxsub: {
     flex: 1,
-    // width: "100%",
     padding: 20,
-    // flexDirection: "row",
     alignContent: "center",
     justifyContent: "center"
-    // backgroundColor: "white",
   },
   boxtext: {
     fontSize: RFPercentage(3),
@@ -245,7 +229,6 @@ const styles = StyleSheet.create({
     padding: 40,
     top: 20,
     flexDirection: "row",
-    // backgroundColor: "white",
     alignContent: "center",
     justifyContent: "center"
   },
@@ -253,7 +236,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-    // backgroundColor: '#000',
   },
   failureBox: {
     width: 250,
