@@ -1,10 +1,10 @@
+// Importing Libraries used here
+
 import React from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { ScreenContainer, Screen } from "react-native-screens";
 
-// const ScreenContainer = ({ children }) => (
-//   <View style={styles.container}>{children}</View>
-// );
+// Component handling navigation on Home Screen
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -22,6 +22,8 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
+
+// Styles
 
 const styles = StyleSheet.create({
   container: {
