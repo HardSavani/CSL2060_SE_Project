@@ -1,14 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { Icon, Button } from "react-native-elements";
-// import { Button } from "react-native-elements/dist/buttons/Button";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import SuccessBox_Borrow from "./SuccessBox_Borrow";
 
 const width = Dimensions.get("screen").width;
 
 const Success_Borrow = ({ navigation, route }) => {
+  
   // DISPLAYING BORROW DETAILS TO USER
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.heading}>
@@ -31,6 +32,7 @@ const Success_Borrow = ({ navigation, route }) => {
       </View>
     </SafeAreaView>
   );
+
 };
 
 const styles = StyleSheet.create({
@@ -47,7 +49,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
-    // backgroundColor: "blue",
   },
   success: {
     fontSize: RFPercentage(5),
@@ -60,7 +61,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
-    // backgroundColor: "pink",
   },
   borrow: {
     fontSize: RFPercentage(4),
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
-    // backgroundColor: "red",
   },
 });
 
