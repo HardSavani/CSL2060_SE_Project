@@ -4,14 +4,9 @@ import { Overlay } from "react-native-elements";
 
 import Card from "./Card";
 
-// var userDatabase = firebase.firestore().collection("Users");
-// var vendingMachineDatabase = firebase.firestore().collection("Vending-Machine");
+//CREATING MODAL(POP-UP) COMPONENT
 
 const MarkerModal = props => {
-  //   console.log(
-  //     "vending machine location :",
-  //     props.selectedVendingMachineObject.location
-  //   );
 
   return (
     <Modal
