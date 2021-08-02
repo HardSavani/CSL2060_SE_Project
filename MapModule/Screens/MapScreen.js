@@ -1,6 +1,3 @@
-// import { StatusBar } from "./node_modules/expo-status-bar";
-
-// import React, { Component } from "./node_modules/react";
 import React, { Component } from "react";
 
 import {
@@ -15,9 +12,7 @@ import {
   Button
 } from "react-native";
 import { Icon, Overlay } from "react-native-elements";
-// import Button from "react-native-button";
 import * as Permissions from "expo-permissions";
-// import { set } from "./node_modules/timm";
 
 import {
   DefaultTheme,
@@ -27,14 +22,12 @@ import {
 
 import firebase from "firebase/app";
 import "firebase/firestore";
-// import { firebaseConfig } from "";
 
 import FooterButtonContainer from "../components/buttons";
 import Map from "../components/Map";
 
 import IssueScreen from "../../IssueModule/MainNavigator";
 
-// let count = 0;
 let locations = 0;
 
 const theme = {
@@ -46,6 +39,8 @@ const theme = {
     accent: "#f1c40f"
   }
 };
+
+// MAIN MAP SCREEN
 
 export default class App extends Component {
   state = {
@@ -66,8 +61,6 @@ export default class App extends Component {
             <TouchableHighlight
               underlayColor="#DDDDDD"
               onPress={async () => {
-                // console.log("Borrow");
-                // console.log("count", this.state.count, this.state.count != 0);
                 this.props.navigation.navigate("CameraScreen", {
                   type: "Borrow"
                 });
@@ -96,8 +89,6 @@ export default class App extends Component {
 
           <View style={{ flex: 1, width: "100%", zIndex: -1 }}>
             <Map
-            // mapRegion={this.state.mapRegion}
-            // handleMapRegion={this.state._handleMapRegion}
             />
           </View>
 
@@ -113,11 +104,9 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginTop: 25,
     backgroundColor: "rgba(0,0,0,0)",
     alignItems: "center",
     justifyContent: "center"
-    // backgroundColor: "transparent"
   },
   header: {
     flex: 1,
@@ -126,7 +115,6 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "skyblue",
     justifyContent: "center"
-    // alignItems: "center"
   },
   headerText: {
     fontSize: 20,
@@ -159,7 +147,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     height: 45,
     width: 120
-    // padding: 15
   },
   returnButtonWrapper: {
     flexDirection: "row",
