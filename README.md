@@ -28,10 +28,12 @@ We require an android user application to allow users and admin to interact with
 ## 3. Demo
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/55546051/127911056-6face002-5c2c-425d-8193-b0d875913743.jpeg" alt="drawing" width="230"/>     <img src="https://user-images.githubusercontent.com/55546051/127911084-31c25b0e-f947-49f3-8401-0b14fc824949.jpeg" alt="drawing" width="230"/>
+	<img src="https://user-images.githubusercontent.com/55546051/127911056-6face002-5c2c-425d-8193-b0d875913743.jpeg" alt="drawing" width="230"/> &nbsp;&nbsp;
+	<img src="https://user-images.githubusercontent.com/55546051/127911084-31c25b0e-f947-49f3-8401-0b14fc824949.jpeg" alt="drawing" width="230"/>
 </p>
 <p align="center">
-	<img src="https://user-images.githubusercontent.com/55546051/127911088-a2335c18-fe19-47f8-9428-2f5fac122e80.jpeg" alt="drawing" width="230"/>     <img src="https://user-images.githubusercontent.com/55546051/127911094-be908e99-c590-425f-a0c8-b265f310dae4.jpeg" alt="drawing" width="230"/>
+	<img src="https://user-images.githubusercontent.com/55546051/127911088-a2335c18-fe19-47f8-9428-2f5fac122e80.jpeg" alt="drawing" width="230"/> &nbsp;&nbsp;   
+	<img src="https://user-images.githubusercontent.com/55546051/127911094-be908e99-c590-425f-a0c8-b265f310dae4.jpeg" alt="drawing" width="230"/>
 </p>
 
 
