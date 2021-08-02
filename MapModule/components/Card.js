@@ -11,12 +11,6 @@ import { Icon } from "react-native-elements";
 import { getDistance, getBoundsOfDistance } from "geolib";
 import getDirections from "react-native-google-maps-directions";
 
-// try {
-//   firebase.initializeApp(firebaseConfig);
-// } catch (e) {
-//   console.log("error", e);
-// }
-
 import firebase from "../../firebase";
 
 var userDatabase = firebase.firestore().collection("Users");
@@ -30,6 +24,8 @@ const vendingMachineMapping = {
   "Mess & Canteen - 1": 5,
   "Mess & Canteen - 2": 6
 };
+
+// CREATING CARDS FOR DIFFEENT VENDING MACHINE LOCATIONS
 
 export default class Card extends React.Component {
   constructor(props) {
@@ -86,21 +82,18 @@ export default class Card extends React.Component {
         Object.entries(doc.data()).forEach(([key, value]) => {
           if (value.Status == "Fully Charged") {
             this.setState({ availableSlots: this.state.availableSlots + 1 });
-            // console.log("Fully Charged");
+
           } else if (value.Status == "Empty") {
-            // emptySlots = emptySlots + 1;
+
             this.setState({ emptySlots: this.state.emptySlots + 1 });
-            // console.log("Empty");
+
           }
         });
-        // console.log("empty slots", this.props.emptySlots);
-        // console.log("charged slots", this.props.availableSlots);
-        // return emptySlots;
       });
   };
 
   componentWillMount() {
-    // this.changeState();
+
     this.retrieve();
   }
 
@@ -109,7 +102,6 @@ export default class Card extends React.Component {
       <View style={styles.container}>
         <View style={{ marginLeft: 12, marginTop: 15 }}>
           <TouchableHighlight
-            //   style={{ paddingLeft: 10, paddingTop: 18 }}
             underlayColor="#DDDDDD"
             onPress={this.props.close}
           >
@@ -150,8 +142,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     borderRadius: 15
-    // justifyContent: "space-around"
-    // alignItems: "center
   },
   informationContainer: {
     flex: 1,
