@@ -3,12 +3,11 @@
 ## Table of Contents
 
 1. Introduction
-2. Description
-3. Demo
-4. Technology used
-5. Software Artifacts
-6. Developers
-7. Steps
+2. Demo
+3. Technology used
+4. Software Artifacts
+5. Developers
+6. Steps
 
 ## 1. Introduction 
 #### Context
@@ -21,11 +20,7 @@
 
 We require an android user application to allow users and admin to interact with the distributed vending machines so as to locate nearest vending machines according to their power bank availability and facilitate the borrowing and return of the power bank units.  There should be a way to store the users’ information such as user profile, power bank borrowed, time for which a power bank is borrowed by the respective user, money owed, calculated according to the business model, in real-time.
 
-## 2. Description
-
-
-
-## 3. Demo
+## 2. Demo
 
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/55546051/127911056-6face002-5c2c-425d-8193-b0d875913743.jpeg" alt="drawing" width="230"/> &nbsp;&nbsp;
@@ -37,24 +32,24 @@ We require an android user application to allow users and admin to interact with
 </p>
 
 
-## 4. Technology Used
+## 3. Technology Used
 
 - React Native
 - Firebase
 
-## 5. Software Artifacts
+## 4. Software Artifacts
 
 - [Software Requirement Specification (SRS) Document](https://drive.google.com/file/d/13eL8YeRs54zYjaWXIQZwh0xPKq98Zp2S/view?usp=sharing)
 - [System Design and Architecture](https://drive.google.com/file/d/1ga2N5BdsUvzkzxyE-H3XquT09u1shlV7/view?usp=sharing)
 - [Essence Document](https://drive.google.com/file/d/1AmHo5Yf2WtW3MPZGUYjMF88Kr7IMyYbR/view?usp=sharing)
 
-## 6. Developers
+## 5. Developers
 
 - Savani Hard Hareshkumar (B19CSE080)
 - Shivam Sharma (B19CSE084)
 
 
-## 7. Steps 
+## 6. Steps 
 #### Follow the following steps in order the run the application on Expo-Go : 
 
 1. Clone the repository
