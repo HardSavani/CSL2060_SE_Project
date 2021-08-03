@@ -3,17 +3,9 @@ import { View, StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Icon } from "react-native-elements";
 
-// import * as firebase from "firebase";
-// import "firebase/firestore";
-// import { firebaseConfig } from "../config";
-
-// try {
-//   firebase.initializeApp(firebaseConfig);
-// } catch (e) {
-//   console.log("error");
-// }
-
 let Count = 0;
+
+// Importing firebase configuration
 
 import firebase from "../firebase";
 
@@ -22,9 +14,10 @@ var vendingMachineDatabase = firebase.firestore().collection("Vending-Machine");
 
 const width = Dimensions.get("screen").width;
 
-const userId = "ghantawalajhumroolal69";
+// Component handling display of success message & information on successful return of powerbank
 
 const SuccessBox_Return = props => {
+  
   const [PowerId, setPowerId] = useState("");
   const [SlotKey, setSlotKey] = useState("");
 
@@ -43,7 +36,6 @@ const SuccessBox_Return = props => {
       .get()
       .then(doc => {
         const data = doc.data();
-        // console.log(data.Slot_A);
         Object.entries(data).forEach(([key, value]) => {
           console.log(value);
           console.log(key);
@@ -59,6 +51,7 @@ const SuccessBox_Return = props => {
     async function x() {
       console.log("Slotkey coming in x", SlotKey);
       if (SlotKey != "") {
+        
         var transactionID;
         var transactions;
         var currentIssue;
@@ -66,7 +59,6 @@ const SuccessBox_Return = props => {
         var borrowDate;
         var borrowTime;
 
-        // await user;
 
         var returnTime = current.getHours().toString();
         returnTime += ":";
@@ -78,6 +70,8 @@ const SuccessBox_Return = props => {
           (current.getMonth() + 1).toString() +
           "/" +
           current.getFullYear().toString();
+        
+        // Adding currently issued item to processed issues on its successful completion
 
         await userDatabase
           .doc(ldapCurrentUser)
@@ -127,6 +121,8 @@ const SuccessBox_Return = props => {
         transactionID = currentIssue.transaction_id;
         borrowedPowerBank_UID = currentIssue.PowerBank_UID;
         setPowerId(borrowedPowerBank_UID);
+        
+        // Updating Current Issue information of user to default on succesful return of powerbank
 
         await userDatabase.doc(ldapCurrentUser).update({
           CurrentIssue: {
@@ -144,6 +140,8 @@ const SuccessBox_Return = props => {
         userDatabase.doc(ldapCurrentUser).update({
           Transactions: transactions
         });
+        
+        // Updating Vending Machine Database after successful return of powerbank
 
         if (SlotKey == "Slot-A") {
           vendingMachineDatabase.doc(props.sdata).update({
@@ -227,39 +225,33 @@ const SuccessBox_Return = props => {
   );
 };
 
+// Styles
+
 const styles = StyleSheet.create({
   box: {
     width: width * 0.8,
     height: width * 0.8,
     backgroundColor: `#87ceeb`,
-    // flexDirection: "row",
-    // justifyContent: "center",
-    // alignContent: "center",
     borderRadius: 20,
     borderWidth: 4,
     padding: 10
   },
   boxsub: {
     flex: 1,
-    // width: "100%",
     padding: 20,
-    // flexDirection: "row",
     alignContent: "center",
     justifyContent: "center"
-    // backgroundColor: "white",
   },
   boxtext: {
     fontSize: RFPercentage(3),
     color: `#2f4f4f`,
     textAlign: "center"
-    // backgroundColor: "white",
   },
   mask: {
     flex: 1,
     padding: 40,
     top: 20,
     flexDirection: "row",
-    // backgroundColor: "white",
     alignContent: "center",
     justifyContent: "center"
   },
@@ -267,7 +259,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-    // backgroundColor: '#000',
   },
   failureBox: {
     width: 250,
