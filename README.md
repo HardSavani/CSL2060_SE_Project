@@ -44,9 +44,9 @@ We require an android user application to allow users and admin to interact with
 
 ## 5. Software Artifacts
 
-- [Software Requirement Specification (SRS) Document](https://docs.google.com/document/d/1INzCUQazTwgU_6JFzNhxju5iOh8RbwXZs-7jCOT575E/edit)
-- [System Design and Architecture](https://docs.google.com/document/d/10FVdgM8rbCNLwZIyCr4oES5yVTQG27rblZ5nrPwxmv0/edit)
-- [Essence Document](https://docs.google.com/document/d/1rXEkQhoG2FjwxA88ZbhJEmpxm_7fLHtXXK0_UO7NP70/edit)
+- [Software Requirement Specification (SRS) Document](https://drive.google.com/file/d/13eL8YeRs54zYjaWXIQZwh0xPKq98Zp2S/view?usp=sharing)
+- [System Design and Architecture](https://drive.google.com/file/d/1ga2N5BdsUvzkzxyE-H3XquT09u1shlV7/view?usp=sharing)
+- [Essence Document](https://drive.google.com/file/d/1AmHo5Yf2WtW3MPZGUYjMF88Kr7IMyYbR/view?usp=sharing)
 
 ## 6. Developers
 
