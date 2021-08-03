@@ -1,11 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { Icon, Button } from "react-native-elements";
-// import { Button } from "react-native-elements/dist/buttons/Button";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import SuccessBox_Return from "./SuccessBox_Return";
 
 const width = Dimensions.get("screen").width;
+
+// Display Screen on Successful Return of Powerbank
 
 const Success_Return = ({ navigation, route }) => {
   return (
@@ -32,6 +33,8 @@ const Success_Return = ({ navigation, route }) => {
   );
 };
 
+// Styles
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -42,11 +45,10 @@ const styles = StyleSheet.create({
   },
   heading: {
     flex: 0.1,
-    padding: 25, // make it 35 after removing top shit saying Success
+    padding: 25,
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
-    // backgroundColor: "blue",
   },
   success: {
     fontSize: RFPercentage(5),
@@ -59,7 +61,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
-    // backgroundColor: "pink",
   },
   borrow: {
     fontSize: RFPercentage(4),
@@ -71,7 +72,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
-    // backgroundColor: "red",
   },
 });
 
