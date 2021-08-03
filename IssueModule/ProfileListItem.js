@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// Format for a profile list item
+
 const ProfileListItem = props => {
   return (
     <View style={styles.container}>
@@ -25,9 +27,10 @@ const ProfileListItem = props => {
   );
 };
 
+// Styles
+
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     height: 60,
     flexDirection: "row",
     justifyContent: "center",
@@ -37,10 +40,8 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: "center",
     alignContent: "center"
-    // backgroundColor:'red',
   },
   icon: {
-    // flex:1,
     backgroundColor: "#E0E0E0",
     position: "absolute",
     width: 45,
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     left: 10,
     justifyContent: "center"
-    // backgroundColor:'yellow'
   },
   text: {
     fontFamily: "sans-serif-medium",
