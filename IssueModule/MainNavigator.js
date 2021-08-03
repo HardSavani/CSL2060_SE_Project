@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { IconButton } from "react-native-paper";
 
+// Importing Components used below in the code
+
 import CameraScreen from "./Camera";
 import Home from "./Home";
 import Success_Borrow from "./Borrow";
@@ -17,13 +19,15 @@ import MapScreen from "../MapModule/Screens/MapScreen";
 import CurrentIssue from "./CurrentIssue";
 import TransactionHistory from "./TransactionHistory";
 
-// import Screen2 from "./Screens/Screen2";
+// Initializing Stack Navigators
 
 const CamStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const CurrentIssueStack = createStackNavigator();
 const TransactionHistoryStack = createStackNavigator();
+
+// Component handling initial screens(on opening of the Application)
 
 const InitialScreen = () => {
   return (
@@ -56,6 +60,8 @@ const InitialScreen = () => {
   );
 };
 
+// Component handling navigation between screens reachable by clicking on the buttons present on Profile screen
+
 const ProfileStackScreen = ({ navigation }) => {
   return (
     <ProfileStack.Navigator>
@@ -77,6 +83,8 @@ const ProfileStackScreen = ({ navigation }) => {
     </ProfileStack.Navigator>
   );
 };
+
+// Component handling navigation between screens reachable by clicking on the buttons present on Current Issue screen
 
 const CurrentIssueStackScreen = ({ navigation }) => {
   return (
@@ -100,6 +108,8 @@ const CurrentIssueStackScreen = ({ navigation }) => {
   );
 };
 
+// Component handling navigation between screens reachable by clicking on the buttons present on Issue History screen
+
 const TransactionHistoryStackScreen = ({ navigation }) => {
   return (
     <TransactionHistoryStack.Navigator>
@@ -121,6 +131,8 @@ const TransactionHistoryStackScreen = ({ navigation }) => {
     </TransactionHistoryStack.Navigator>
   );
 };
+
+// Function handling navigation between the 3 options of the Menu Toggle bar
 
 function IssueScreen() {
   return (
@@ -145,12 +157,13 @@ function IssueScreen() {
   );
 }
 
+// Styles
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
-    // backgroundColor: "black",
   }
 });
 
