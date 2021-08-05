@@ -4,7 +4,6 @@ import { TextInput } from "react-native-paper";
 import { Button } from "react-native-paper";
 
 import firebase from "../firebase";
-// import console = require("console");
 
 var userDatabase = firebase.firestore().collection("Users");
 var vendingMachineDatabase = firebase.firestore().collection("Vending-Machine");
@@ -22,14 +21,11 @@ const UpdateProfile = ({ navigation }) => {
   const [thing3, setThing3] = useState("");
 
   async function updateProfileItems() {
-    console.log("updating");
 
     await userDatabase.doc(ldapCurrentUser).update({
       Phone_Number: phone,
       Residence: residence
     });
-
-    console.log("It finished here..");
 
     return await navigation.navigate("Profile");
   }
@@ -71,11 +67,9 @@ const UpdateProfile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
     alignContent: "center"
   },
   infoContainer: {
-    // flex: 1,
     top: 20,
     justifyContent: "center",
     alignContent: "center",
