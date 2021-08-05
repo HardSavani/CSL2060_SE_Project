@@ -31,19 +31,8 @@ export default class GoogleLogin extends React.Component {
   isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;
-      // for (var i = 0; i < providerData.length; i++) {
-      //   if (
-      //     providerData[i].providerId ===
-      //       firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-      //     providerData[i].uid === googleUser.getBasicProfile().getId()
-      //   ) {
-      //     // We don't need to reauth the Firebase connection.
-      //     return true;
-      //   }
-      // }
     }
     return false;
-    // return true;
   };
 
   onSignIn = googleUser => {
@@ -120,7 +109,6 @@ export default class GoogleLogin extends React.Component {
     console.log("done", this.state.nonLoggedInText);
     this.props.return();
   };
-  // }
 
   signIn = async () => {
     try {
@@ -128,8 +116,6 @@ export default class GoogleLogin extends React.Component {
         androidClientId:
           "655472426402-65f64u3sdij8ab43pkd0ijf4ris88ed7.apps.googleusercontent.com",
         scopes: ["profile", "email"]
-        // androidStandaloneAppClientId:
-        //   "655472426402-4tkiqfrbkjdkum9humu7he9atgoe21bd.apps.googleusercontent.com"
       });
 
       if (result.type === "success") {
